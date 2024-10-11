@@ -1,0 +1,37 @@
+{%include "inc/header.html"%}
+
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST">
+            {% csrf_token%}
+            {% for x in consulta%}
+            <div class="row">   
+            <h1>formulario actualizar proveedor</h1>
+                <div class="col-md 4">
+                    <label for="">documento</label>
+                    <input class="form-control" type="text" name="documento" value="{{x.documento}}" id="documento">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">nombre completo</label>
+                    <input class="form-control" type="text" name="nombre" value="{{x.nombre}}" id="nombre">
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="">telefono</label>
+                    <input class="form-control" type="number" name="telefono" value="{{x.telefono}}" id="telefono">
+                </div>
+                <br><br>
+                <div class="centrarboton">
+                    <input type="submit" value="guardar_cliente" class="btn btn-primary">
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

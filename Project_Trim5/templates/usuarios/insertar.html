@@ -1,0 +1,47 @@
+{%include "inc/header.html"%}
+
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST">
+            {% csrf_token%}
+            <div class="row">   
+            <h1>registro usuario</h1>
+                <div class="col-md 4">
+                    <label for="">username</label>
+                    <input class="form-control" type="text" name="username" id="username">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">nombre</label>
+                    <input class="form-control" type="text" name="nombre" id="nombre">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">apellido</label>
+                    <input class="form-control" type="text" name="apellido" id="apellido">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">correo</label>
+                    <input class="form-control" type="mail" name="correo" id="correo">
+                </div>
+
+            <div class="col-md 4">
+                    <label for="">contraseña</label>
+                    <input class="form-control" type="password" name="pass" id="pass">
+                </div>
+                <br><br>
+                <div class="centrarboton">
+                    <a href="/usuario/login"><button type="button" class="btn btn-success">inicia sesion</button></a>
+
+                    <input type="submit" value="registrar" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

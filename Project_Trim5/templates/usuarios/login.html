@@ -1,0 +1,36 @@
+{%include "inc/header.html"%}
+
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST">
+            {% csrf_token%}
+            <div class="row">   
+            <h1>inicio sesion</h1>
+              
+                <div class="col-md 4">
+                    <label for="">username</label>
+                    <input class="form-control" type="text" name="username" id="username">
+                </div>
+
+            <div class="col-md 4">
+                    <label for="">contraseña</label>
+                    <input class="form-control" type="password" name="pass" id="pass">
+                </div>
+                <br>
+                {% if mensaje %}
+                    {{mensaje}}
+                {% endif%}
+                <br><br>
+                <div class="centrarboton">
+                    <a href="/usuario/insertar"><button type="button" class="btn btn-success">registrarse</button></a>
+                    <input type="submit" value="iniciar sesion" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

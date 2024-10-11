@@ -1,0 +1,81 @@
+{%include "inc/header.html"%}
+{% load static %}
+<script src="{% static 'js/jspdf.umd.min.js' %}"></script>
+<div class="container">
+   
+        <h1>detalles factura</h1>
+        {% for x in detalles %}
+            {% if forloop.first%}
+                <hr><br>
+                <h4 id="nombre_cliente">nombre del cliente: {{ x.7 }}</h4>
+                <h4 id="celular_cliente">celular del cliente: {{ x.8 }}</h4>
+                <h4 id="doc_cliente">cedula del cliente: {{ x.9 }}</h4>
+            {%endif%}
+        {% endfor %}
+    <br><br><br>
+    <table id="tablaFactura" class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">nombre producto</th>
+            <th scope="col">precio</th>
+            <th scope="col">cantidad</th>
+            <th scope="col">subtotal</th>
+          </tr>
+        </thead>
+            {%for d in detalles %}
+                <tr>
+                    <td>{{d.3}}</td>
+                    <td>{{d.5}}</td>
+                    <td>{{d.4}}</td>
+                    <td></td>
+                </tr>
+            {%endfor%}
+        <tbody>
+          
+        </tbody>
+      </table>
+      <button class="btn btn-danger centrarboton" onclick="imprimir()">generar pdf</button>
+</div>
+</div>
+
+
+<script>
+    function imprimir() {
+        // Default export is a4 paper, portrait, using millimeters for units
+        const {jsPDF} = window.jspdf;
+        const doc = new jsPDF('p','mm','a3')
+
+        var nombre_cliente = document.getElementById("nombre_cliente").textContent;
+        var celular_cliente = document.getElementById("celular_cliente").textContent;
+        var doc_cliente = document.getElementById("doc_cliente").textContent;
+
+        var imageninferior = new Image()
+        
+        imageninferior.src = '{% static "img/banner/footer_hoja_azul.png"%}'
+        doc.addImage(imageninferior,"PNG", 0,370, 300, 50)
+       
+        imageninferior = '{% static "img/banner/header_hoja_azul.png"%}'
+        doc.addImage(imageninferior,"PNG", 0,0, 380, 150)
+        
+        imageninferior = '{% static "img/banner/logo_sena.png"%}'
+        doc.addImage(imageninferior,"PNG", 230,50, 50, 50)
+
+        doc.setFontSize(25);
+        doc.text("Factura Super Market ", 85, 120);
+        doc.text(nombre_cliente, 85, 140)
+        doc.text(celular_cliente, 85, 150)
+        doc.text(doc_cliente, 85, 160)
+        doc.autoTable({
+            styles:{fillColor: [113, 255, 1 ]},
+            html: '#tablaFactura',
+            margin:{
+                left:30,
+                top: 180
+            }
+        });
+
+        doc.save("a4.pdf");
+    }
+</script>
+
+{%include "inc/footer.html"%}

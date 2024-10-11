@@ -1,0 +1,60 @@
+{%include "inc/header.html"%}
+
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token%}
+            <div class="row">   
+            <h1>formulario registro prducto</h1>
+                <div class="col-md 4">
+                    <label for="">nombre</label>
+                    <input class="form-control border-black" type="text" name="nombre" id="nombre">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">precio producto</label>
+                    <input class="form-control border-black" type="text" name="precio" id="precio">
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="">descripcion</label>
+                    <input class="form-control border-black" type="text" name="descripcion" id="descripcion">
+                </div>
+            </div>
+            <br><br>
+            <div class="row">   
+            
+                <div class="col-md 4">
+                    <label for="">codigo</label>
+                    <input class="form-control border-black" type="text" name="codigo" id="codigo">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">foto</label>
+                    <input class="form-control border-black" type="file" name="foto" id="foto" accept="image/">
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="proveedores">proveedor</label>
+                    <select id="proveedores" name="proveedores" class="form-select border-black" aria-label="Default select example">
+                        <option selected>proveedores</option>
+                        {% for x in consulta%}
+                        <option value="{{x.id}}">{{x.nombre}}</option>
+                        
+                        {% endfor %}
+                    </select>
+                </div>
+                
+            </div>
+            <br><br>
+            <div class="centrarboton">
+                <input type="submit" value="guardar_producto" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

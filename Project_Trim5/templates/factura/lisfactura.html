@@ -1,0 +1,43 @@
+{% include "inc/header.html"%}
+
+<div class="container">
+    <h1>listado de facturas</h1>
+    
+    <table class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">fecha</th>
+            <th scope="col">cliente</th>
+            <th scope="col">total</th>
+            <th scope="col">acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for f in factura%}
+          <tr>
+            <th>{{f.id}}</th>
+            <td>{{f.fecha}}</td>
+            <td>{{f.cliente.nombre}}</td>
+            <td>{{f.total}}</td>
+            <td><a href="/factura/actualizar/{{f.id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a href="#"><i onclick="borrar('{{f.id}}')" class="fa fa-trash" aria-hidden="true"></a></i>
+                <a href="/factura/detalle/{{f.id}}"><i onclick="" class="fa fa-eye" aria-hidden="true"></a></i>
+            </td>
+                
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+</div>
+
+<script>
+    function borrar(id){
+            respuesta = confirm("deseas borrarla factura #"+id);
+            if (respuesta){
+                location.href = "/factura/borrar/"+ id
+            }
+        }
+</script>
+
+{% include "inc/footer.html"%}

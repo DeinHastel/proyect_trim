@@ -1,0 +1,31 @@
+{%include "inc/header.html"%}
+{% load static %}
+<main>
+    <h1>productos inactivos</h1> <a href="/productos/listado">listado de activos</a>
+  <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+      <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+          {% for p in productos %}
+              <div class="col">
+                  <div class="card h-100 shadow-sm"> <img
+                          src="{% static 'Img/' %}{{ p.5 }}"
+                          class="card-img-top" height="200" alt="...">
+                      <div class="card-body">
+                          <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary">{{ p.1 }}</span> <span class="float-end price-hp">&dollar;{{ p.2 }}</span> </div>
+                          <h5 class="card-title">Descripcion.</h5>
+                          <div class="text-center my-4"> <a href="#" class="btn btn-danger">Actualizar</a> <a href="#" onclick="activar('{{p.0}}')" class="btn btn-danger">activar</a> </div>
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+</main>
+<script>
+    function activar(id){
+            respuesta = confirm("deseas activar nuevamente el producto # "+id+"?");
+            if (respuesta){
+                location.href = "/productos/activar/"+ id
+            }
+        }
+</script>
+{%include "inc/footer.html"%}

@@ -1,0 +1,68 @@
+{%include "inc/header.html"%}
+{% load static %}
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token%}
+            {% for p in producto%}
+            <div class="row">   
+            <h1>formulario actualizar prducto</h1>
+                <div class="col-md 4">
+                    <label for="">nombre</label>
+                    <input class="form-control border-black" type="text" name="nombre" id="nombre" value="{{p.nombre}}">
+                </div>
+                <div>
+                    <input type="text" name="foto_vieja" id="foto_vieja" value="{{p.foto}}" hidden>
+                </div>
+                <div class="col-md 4">
+                    <label for="">precio producto</label>
+                    <input class="form-control border-black" type="text" name="precio" id="precio" value="{{p.precio}}">
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="">descripcion</label>
+                    <input class="form-control border-black" type="text" name="descripcion" id="descripcion" value="{{p.descripcion}}">
+                </div>
+            </div>
+            <br><br>
+            <div class="row">   
+            
+                <div class="col-md 4">
+                    <label for="">codigo</label>
+                    <input class="form-control border-black" type="text" name="codigo" id="codigo" value="{{p.codigo}}">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">foto</label>
+                    <br>
+                    <img src="{% static 'img/'%}{{p.foto}}" alt="" width="450px" height="200px">
+                    <input class="form-control border-black" type="file" name="foto" id="foto" accept="image/" >
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="proveedores">proveedor</label>
+                    <select id="proveedores" name="proveedores" class="form-select border-black" aria-label="Default select example">
+                        {% for x in proveedor%}
+                        
+                        {{p.proveedor}}
+                        <option value="{{x.id}}" {% if x.id == p.proveedor %} selected {%endif%}>{{x.nombre}}</option>
+                        
+                        
+                        {% endfor %}
+                    </select>
+                </div>
+                
+            </div>
+            <br><br>
+            <div class="centrarboton">
+                <input type="submit" value="guardar_producto" class="btn btn-primary">
+            </div>
+            {%endfor%}
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

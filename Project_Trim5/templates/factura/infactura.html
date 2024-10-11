@@ -1,0 +1,212 @@
+{%include "inc/header.html"%}
+{% load static %}
+
+
+<div class="container">
+    <form method="POST" class="row g-3 needs-validation" novalidate>
+
+    
+        <form method="POST" class="needs-validation"  novalidate>
+            {% csrf_token%}
+            <div class="row g-3 needs-validation" novalidate>   
+            <h1>formulario registro de factura</h1>
+                <div class="col-md 4">
+                    <label for="doc">documento del cliente</label>
+                    <div class="input-group has-validation">
+                    <input class="form-control border-black" type="text" name="documento" id="documento" aria-describedby="validationTooltipUsernamePrepend" required>
+                    <div class="valid-tooltip">
+                        Looks good!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Por favor escoja un documento valido
+                    </div>
+                </div>
+            </div>
+                <div class="col-md 4">
+                    <br>
+                    <input class="btn btn-primary" value="Consultar cliente" onclick=consultarclienteapi() type="button" name="consulta" id="consulta">
+                </div>
+                <div class="col-md-4">
+                    <label for="">fecha de la factura</label>
+                    <input type="date" name="fechafactura" class="form-control" id="fechafactura">
+
+                </div>
+            
+            </div>
+            <hr>
+            <div class="row">   
+
+                <div class="col-md 6">
+                    <h3 id="nombrecliente">Nombre del cliente: </h3>
+                    <input type="hidden" name="idcliente" id="idcliente" value="">
+                </div>
+
+                <div class="col-md 6">
+                    <h3 id="telefonocliente"> telefono del cliente: </h3>
+                </div>
+                <hr>
+            <br>
+
+
+
+            <main>
+                <h1>productos</h1> 
+              <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+                  <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+                      {% for c in producto %}
+                          <div class="col">
+                              <div class="card h-500 shadow-sm"> <img
+                                      src="{% static 'Img/' %}{{ c.foto }}"
+                                      class="card-img-top" height="200" alt="...">
+                                  <div class="card-body">
+                                      <div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary">{{ c.nombre }}</span> <span class="float-end price-hp">&dollar;{{ c.precio }}</span> </div>
+                                      <h5 class="card-title">{{ c.descripcion }}</h5>
+                                      <div class="text-center my-4"> 
+                                        <button onclick="agregarproducto('{{c.id}}','{{c.nombre}}','{{c.precio}}')" type="button" class="btn btn-danger">agregar</button>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      {% endfor %}
+                  </div>
+              </div>
+            </main>
+            <hr>
+
+            <div class="container">
+                <h2> Listado </h2> 
+                  
+                  <table class="table table-bordered table-dark">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Nombre</th>
+                              <th scope="col">cantidad</th>
+                              <th scope="col">Precio</th>
+                              <th scope="col">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="filatabla">
+                        
+                      </tbody>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col" id="totalfactura">total factura</th>
+                        <input type="hidden" name="totalfacturainput" id="totalfacturainput" value="">
+                        <th scope="col"></th>
+                  </tr>
+                    </table>
+                    <input type="submit" class="btn btn-primary centrarboton" value="guardar factura"  name="factura" id="factura">
+
+              </div>
+              
+        </form>
+    </form>
+    </div>
+
+</div>
+<script>
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+
+</script>
+
+
+
+<script>
+    c = 0;
+    totalfactura = 0;
+
+
+    function consultarclienteapi(){
+        let documento = document.getElementById('documento').value;
+        console.log(documento)
+        let url = "/cliente/api/" + documento
+        fetch(url)
+        .then(data => data.json())
+        .then(data => {
+            if(data.length == 0){
+                alert ("No existe un usuario con este id")
+                document.getElementById("nombrecliente").innerHTML = "Nombre del cliente: "
+                document.getElementById("telefonocliente").innerHTML = "Nombre del cliente: "
+
+            }
+            else
+            {
+
+            
+            document.getElementById("nombrecliente").innerHTML = "Nombre del cliente: " + data[0].fields.nombre
+            document.getElementById("telefonocliente").innerHTML = "telefono del cliente: " + data[0].fields.telefono
+            document.getElementById("idcliente").value = data[0].pk
+        }
+        })
+    }
+
+
+function agregarproducto (id,nombreproducto,precioproducto){
+    
+    
+    // enviar la informacion de la tabla
+    
+    idcantidadproducto = document.getElementById("cantidad"+id);
+    if (idcantidadproducto == null){
+        c = c + 1
+        $('#filatabla').append("<tr id='f"+c+"'>\
+        <td>"+c+"</td>\
+        <td>"+nombreproducto+"</td>\
+        <td id='cantidad"+id+"'>1</td>\
+        <input type='hidden' name='cantidadproductotabla[]' value='1' id='cantidadproductotabla"+id+"'>\
+        <input type='hidden' name='idproductotabla[]' value="+id+" id='idproductotabla'>\
+        <td id='p"+id+"'>"+precioproducto+"</td>\
+        <td><button class='btn btn-danger' onclick='eliminarfila("+c+","+id+")'>Eliminar</button></td>\
+    </tr>\
+        ");
+        totalfactura = totalfactura + parseInt(precioproducto);
+        
+        document.getElementById("totalfactura").innerHTML = "total factura:  "+totalfactura
+    }else{
+        cantidadproducto = document.getElementById("cantidad"+id).textContent;
+        operacioncantidad = parseInt(cantidadproducto) + 1
+        document.getElementById("cantidad"+id).innerHTML = operacioncantidad;
+        document.getElementById("p"+id).innerHTML = operacioncantidad * precioproducto
+        //nuevo total factura
+        totalfactura = totalfactura + parseInt(precioproducto)
+        document.getElementById("totalfactura").innerHTML = "total factura:  "+totalfactura
+        document.getElementById("cantidadproductotabla"+id).value = operacioncantidad
+    }
+    document.getElementById("totalfacturainput").value = totalfactura
+    
+
+}
+
+function eliminarfila(fila,id){
+    objeto = parseInt(document.getElementById("p"+id).textContent);
+    totalfactura = totalfactura - objeto
+    document.getElementById("totalfactura").innerHTML = "total factura: $ "+totalfactura;
+    $('#f'+fila).remove();
+    document.getElementById("totalfacturainput").value = totalfactura
+}
+</script>
+
+{%include "inc/footer.html"%}

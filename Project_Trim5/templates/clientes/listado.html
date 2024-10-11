@@ -1,0 +1,42 @@
+{% include "inc/header.html"%}
+
+<div class="container">
+    <h1>listado Clientes</h1>
+    
+    <table class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombre completo</th>
+            <th scope="col">documento</th>
+            <th scope="col">telefono</th>
+            <th scope="col">acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for c in clientes%}
+          <tr>
+            <th>{{c.id}}</th>
+            <td>{{c.nombre}}</td>
+            <td>{{c.documento}}</td>
+            <td>{{c.telefono}}</td>
+            <td><a href="/clientes/actualizar/{{c.id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a href="#"><i onclick="borrar('{{c.id}}')" class="fa fa-trash" aria-hidden="true"></a></i>
+            </td>
+                
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+</div>
+
+<script>
+    function borrar(id){
+            respuesta = confirm("deseas borrar? el cliente #"+id);
+            if (respuesta){
+                location.href = "/clientes/borrar/"+ id
+            }
+        }
+</script>
+
+{% include "inc/footer.html"%}

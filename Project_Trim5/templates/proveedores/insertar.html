@@ -1,0 +1,35 @@
+{%include "inc/header.html"%}
+
+<div class="container">
+    <div class="row">
+
+    
+        <form action="" method="POST">
+            {% csrf_token%}
+            <div class="row">   
+            <h1>formulario registro proveedor</h1>
+                <div class="col-md 4">
+                    <label for="">documento</label>
+                    <input class="form-control" type="number" name="documento" id="documento">
+                </div>
+
+                <div class="col-md 4">
+                    <label for="">nombre completo</label>
+                    <input class="form-control" type="text" name="nombre" id="nombre">
+                </div>
+                
+                <div class="col-md 4">
+                    <label for="">telefono</label>
+                    <input class="form-control" type="number" name="telefono" id="telefono">
+                </div>
+                <br><br>
+                <div class="centrarboton">
+                    <input type="submit" value="guardar_cliente" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{%include "inc/footer.html"%}

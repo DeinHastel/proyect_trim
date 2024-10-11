@@ -1,0 +1,64 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/css/font-awesome.min.css'%}">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Camacho's Market</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Clientes
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/clientes/insertar">registrar cliente</a></li>
+                      <li><a class="dropdown-item" href="/clientes/listado">lsitado de clietnes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Productos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/productos/insertar">registrar producto</a></li>
+                      <li><a class="dropdown-item" href="/productos/listado">listado de productos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Proovedor
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/proveedores/insertar">registrar Prooveedor</a></li>
+                      <li><a class="dropdown-item" href="/proveedores/listado">listado prooveedores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Factura
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/factura/insertar">registrar Factura</a></li>
+                    <li><a class="dropdown-item" href="/factura/listado">listado Factura</a></li>
+                  </ul>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <a class="btn btn-outline-success" href="/usuario/login">login</a>
+              <a class="btn btn-outline-success" href="/usuario/logout">logout</a>
+            </form>
+          </div>
+        </div>
+      </nav>
